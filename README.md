@@ -52,10 +52,18 @@ npm install pyno-date pyno-datepicker
 - Custom label for the "Today" button via `todayBtnText`.
 
 ```typescript
-this.pynoDatepicker.setFirstDayOfWeek('sunday');
-this.pynoDatepicker.setWeekdayName('gregorian', 'saturday', 'Sat');
-this.pynoDatepicker.setMonthName('gregorian', 9, 'Sep');
+import {PynoDatepickerService} from "pyno-datepicker";
+pynoDatepicker = inject(PynoDatepickerService);
 ```
+
+```typescript
+someMethod(){
+  this.pynoDatepicker.setFirstDayOfWeek('sunday');
+  this.pynoDatepicker.setWeekdayName('gregorian', 'saturday', 'Sat');
+  this.pynoDatepicker.setMonthName('gregorian', 9, 'Sep');
+}
+```
+
 
 ### 🎯 Rich Inputs
 

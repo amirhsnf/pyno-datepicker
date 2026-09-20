@@ -16,11 +16,15 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/pyno-datepicker.git"
+    "url": "https://github.com/amirhsnf/pyno-datepicker"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/pyno-datepicker/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^22.1.0",
-    "@angular/core": "^22.1.0"
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "pyno-date": "^2.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
