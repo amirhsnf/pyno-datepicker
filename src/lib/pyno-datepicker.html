@@ -1,0 +1,95 @@
+@if(isOpen() || inline()){
+  @let cal = calendar();
+  @if(!inline()){
+  <div class="pdp-overlay" (click)="close()"></div>
+  }
+  <div class="pyno-datepicker {{inline() ? 'pdp-inline' : ''}} {{cal === 'jalali' ? 'pdp-rtl' : ''}}" animate.enter="pdp-fade-in" animate.leave="pdp-fade-out">
+    <div class="pdp-topbar">
+      <div class="pdp-topbar-btn-wrapper">
+        @if(mode() !== 'months'){
+          <div class="pdp-topbar-btn" (click)="mode() === 'days' ? changeMonth(+selectedMonth() - 1, +this.selectedYear()) : yearPage.set(yearPage() - 1)"></div>
+        }
+      </div>
+      <div class="pdp-month-year">
+        <div class="pdp-month pdp-select" (click)="mode.set('months')">
+          {{month()}}
+        </div>
+        <div class="pdp-year pdp-select" (click)="mode.set('years')">
+          {{selectedYear()}}
+        </div>
+      </div>
+      <div class="pdp-topbar-btn-wrapper">
+        @if(mode() !== 'months'){
+          <div class="pdp-topbar-btn pdp-topbar-btn-reverse" (click)="mode() === 'days' ? changeMonth(+selectedMonth() + 1, +this.selectedYear()) : yearPage.set(yearPage() + 1)"></div>
+        }
+      </div>
+    </div>
+
+    @if(mode() === 'days'){
+      <div class="pdp-weekdays">
+        @for(item of weekdays(); track item){
+          <div class="pdp-weekday pdp-weekday-{{item}}">
+            {{datepickerService.getWeekdayName(item, cal)}}
+          </div>
+        }
+      </div>
+      <div class="pdp-days">
+        @for(item of monthDays(); track item.timestamp){
+          @if(($index < 40 && !this.isCurrentMonth()) || this.isCurrentMonth()){
+            <div class="pdp-day-wrapper">
+              <div class="pdp-day pdp-{{item.weekday}} pdp-{{item.gDate}} pdp-{{item.jDate}}"
+                   [class.pdp-today]="today().timestamp === item.timestamp"
+                   [class.pdp-day-pre-month]="(cal === 'gregorian' && +item.gMonth < +selectedMonth()) || (cal === 'jalali' && +item.jMonth < +selectedMonth())"
+                   [class.pdp-day-next-month]="(cal === 'gregorian' && +item.gMonth > +selectedMonth()) || (cal === 'jalali' && +item.jMonth > +selectedMonth())"
+                   [class.pdp-day-selected]="item.timestamp === selectedDate()?.timestamp"
+                   (click)="onDate(item)"
+              >
+                <div class="pdp-day-main-value">
+                  {{cal === 'gregorian' ? item.gDay : item.jDay}}
+                  @if(secondCalendar()){
+                    <div class="pdp-day-second-value">
+                      @let secondVal = +(cal === 'gregorian' ? item.jDay : item.gDay);
+                      @if(secondVal === 1 || $index == 0 || $index == 41){
+                        {{getSecondMonth((cal === 'gregorian' ? +item.jMonth : +item.gMonth)) + ' ' + secondVal}}
+                      } @else {
+                        {{secondVal}}
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        }
+        @if(!this.isCurrentMonth()){
+          <div class="pdp-today-btn-wrapper" (click)="goToCurrentMonth()">
+            <div class="pdp-today-btn">
+              {{todayBtnText()}}
+            </div>
+          </div>
+        }
+      </div>
+    } @else if(mode() === 'months'){
+      <div class="pdp-months">
+        @let months = getMonths();
+        @for(item of months; track item.val){
+          <div class="pdp-month-wrapper">
+            <div class="pdp-month-each" [class.pdp-month-selected]="item.val === +selectedMonth()" (click)="changeMonth(+item.val, +this.selectedYear()); mode.set('days')">
+              {{item.title}}
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="pdp-years">
+        @for(item of years(); track item){
+          <div class="pdp-year-wrapper">
+            <div class="pdp-year-each" [class.pdp-year-selected]="item === +selectedYear()" (click)="selectYear(item)">
+              {{item}}
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+}

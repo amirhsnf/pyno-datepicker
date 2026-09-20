@@ -1,0 +1,29 @@
+{
+  "name": "pyno-datepicker",
+  "version": "1.0.0",
+  "description": "A modern, standalone Angular datepicker with Persian and Gregorian calendar support.",
+  "keywords": [
+    "angular",
+    "datepicker",
+    "jalali",
+    "shamsi",
+    "persian-date",
+    "gregorian",
+    "calendar",
+    "date-picker"
+  ],
+  "author": "Amir Navidfar <amirhsnf@gmail.com> (https://github.com/amirhsnf)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/pyno-datepicker.git"
+  },
+  "peerDependencies": {
+    "@angular/common": "^22.1.0",
+    "@angular/core": "^22.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
